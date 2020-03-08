@@ -6,7 +6,8 @@
         {
             "label": "publish",
             "type": "shell",
-            "command": "cp src/* docs"
+            "command": "cp src/* docs",
+            "problemMatcher": []
         }
     ]
 }
