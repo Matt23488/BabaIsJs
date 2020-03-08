@@ -6,7 +6,7 @@
         {
             "label": "publish",
             "type": "shell",
-            "command": "cp src/* docs",
+            "command": "robocopy src docs /s /e",
             "problemMatcher": []
         }
     ]
