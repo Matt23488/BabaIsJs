@@ -1,6 +1,7 @@
 import renderer from "./Renderer.js";
 import Baba from "./Objects/Sprites/Baba.js";
 import state from "./StateStack.js";
+import { Direction } from "./Objects/Object.js";
 
 async function main() {
 
@@ -10,19 +11,12 @@ async function main() {
     renderer.windowWidth = LEVEL_SIZE;
     renderer.windowHeight = LEVEL_SIZE;
 
-    renderer.clear("#333");
-
     const baba = new Baba();
-    // baba.x = 3;
-    // baba.y = 4;
 
-    renderer.drawObject(baba);
-
-    function moveBaba(x, y) {
+    function moveBaba(dir) {
         state.recordState(baba);
         state.endFrame();
-        baba.x += x;
-        baba.y += y;
+        baba.move(dir);
     }
 
     function redraw() {
@@ -32,19 +26,21 @@ async function main() {
 
     window.addEventListener("keydown", ev => {
         if (ev.key === "ArrowUp") {
-            moveBaba(0, -1);
+            moveBaba(Direction.up);
         } else if (ev.key === "ArrowRight") {
-            moveBaba(1, 0);
+            moveBaba(Direction.right);
         } else if (ev.key === "ArrowDown") {
-            moveBaba(0, 1);
+            moveBaba(Direction.down);
         } else if (ev.key === "ArrowLeft") {
-            moveBaba(-1, 0);
+            moveBaba(Direction.left);
         }
         else if (ev.key === "z") {
             state.undo();
         }
         redraw();
     });
+
+    redraw();
 }
 
 main();

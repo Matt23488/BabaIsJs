@@ -47,10 +47,10 @@ class StateFrame {
     }
 
     reverseStates() {
-        for (let change of this.#states) {
-            change.obj.x = change.x;
-            change.obj.y = change.y;
-            change.obj.facing = change.facing;
+        for (let state of this.#states) {
+            state.obj.x = state.x;
+            state.obj.y = state.y;
+            state.obj.facing = state.facing;
         }
     }
 }
