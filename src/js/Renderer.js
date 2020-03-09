@@ -1,4 +1,5 @@
-const CELL_SIZE = 20; // px
+const CELL_SIZE = 40; // px
+const SPRITE_SIZE = 20;
 
 class Renderer
 {
@@ -34,14 +35,10 @@ class Renderer
                 resolve();
             });
         });
+    }
 
-        // document.body.appendChild(this.#spritesheet);
-
-        // this.#spritesheet = document.createElement("canvas");
-        // this.#spritesheet.width = spritesheet.width;
-        // this.#spritesheet.height = spritesheet.height;
-
-        // this.#spritesheet.getContext("2d").drawImage(spritesheet, 0, 0);
+    async waitUntilReady() {
+        await this.#spritesheetLoader;
     }
 
     get windowWidth() {
@@ -63,14 +60,13 @@ class Renderer
         this.#context.fillRect(0, 0, this.windowWidth, this.windowHeight);
     }
 
-    async drawObject(obj) {
-        await this.#spritesheetLoader;
+    drawObject(obj) {
         this.#context.drawImage(
             this.#spritesheet,
-            obj.textureX * CELL_SIZE,
-            obj.textureY * CELL_SIZE,
-            CELL_SIZE,
-            CELL_SIZE,
+            obj.textureX * SPRITE_SIZE,
+            obj.textureY * SPRITE_SIZE,
+            SPRITE_SIZE,
+            SPRITE_SIZE,
             obj.x * CELL_SIZE,
             obj.y * CELL_SIZE,
             CELL_SIZE,
