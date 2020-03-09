@@ -37,10 +37,15 @@ async function main() {
         else if (ev.key === "z") {
             state.undo();
         }
-        redraw();
     });
 
-    redraw();
+    function loop() {
+        redraw();
+
+        window.requestAnimationFrame(loop);
+    }
+
+    window.requestAnimationFrame(loop);
 }
 
 main();
