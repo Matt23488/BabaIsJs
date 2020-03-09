@@ -20,9 +20,9 @@ export default class Object {
     #textureY = 0;
 
     /**
-     * @type {Facing}
+     * @type {Direction}
      */
-    #facing = Facing.up;
+    #facing = Direction.up;
 
     constructor(textureX, textureY) {
         this.#textureX = textureX;
@@ -40,16 +40,44 @@ export default class Object {
 
     get facing() { return this.#facing; }
     set facing(val) { this.#facing = val; }
+
+    /**
+     * Moves the object and sets the new facing direction.
+     * @param {Direction} dir 
+     */
+    move(dir) {
+        this.x += dir.xOffset;
+        this.y += dir.yOffset;
+        this.facing = dir;
+    }
 }
 
-export class Facing {
-    static #up = new Facing();
-    static #right = new Facing();
-    static #down = new Facing();
-    static #left = new Facing();
+export class Direction {
+    static #up = new Direction(0, -1);
+    static #right = new Direction(1, 0);
+    static #down = new Direction(0, 1);
+    static #left = new Direction(-1, 0);
 
-    static get up() { return Facing.#up; }
-    static get right() { return Facing.#right; }
-    static get down() { return Facing.#down; }
-    static get left() { return Facing.#left; }
+    static get up() { return Direction.#up; }
+    static get right() { return Direction.#right; }
+    static get down() { return Direction.#down; }
+    static get left() { return Direction.#left; }
+
+    /**
+     * @type {number}
+     */
+    #xOffset = 0;
+
+    /**
+     * @type {number}
+     */
+    #yOffset = 0;
+
+    constructor(xOffset, yOffset) {
+        this.#xOffset = xOffset;
+        this.#yOffset = yOffset;
+    }
+
+    get xOffset() { return this.#xOffset; }
+    get yOffset() { return this.#yOffset; }
 }

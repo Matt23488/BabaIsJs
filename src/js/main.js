@@ -2,6 +2,10 @@ import renderer from "./Renderer.js";
 import Baba from "./Objects/Sprites/Baba.js";
 import state from "./StateStack.js";
 import { Direction } from "./Objects/Object.js";
+import TextBase from "./Objects/Text/TextBase.js";
+import BabaWord from "./Objects/Text/ObjectWords/Baba.js";
+import IsWord from "./Objects/Text/Is.js";
+import YouWord from "./Objects/Text/BehaviorWords/You.js";
 
 async function main() {
 
@@ -12,6 +16,7 @@ async function main() {
     renderer.windowHeight = LEVEL_SIZE;
 
     const baba = new Baba();
+    const babaWord = new BabaWord();
 
     function moveBaba(dir) {
         state.recordState(baba);
@@ -22,6 +27,7 @@ async function main() {
     function redraw() {
         renderer.clear("#333");
         renderer.drawObject(baba);
+        renderer.drawObject(babaWord);
     }
 
     window.addEventListener("keydown", ev => {
@@ -39,9 +45,14 @@ async function main() {
         }
     });
 
-    function loop() {
+    let previousTimestamp = 0;
+    let deltaTime = 0;
+    function loop(timestamp) {
+        deltaTime = timestamp - previousTimestamp;
+        
         redraw();
-
+        
+        previousTimestamp = timestamp;
         window.requestAnimationFrame(loop);
     }
 
@@ -49,3 +60,30 @@ async function main() {
 }
 
 main();
+
+// let babaYou = new YouWord();
+// let isYou = new YouWord();
+// let youYou = new YouWord();
+
+// let babaFlag = false;
+// let isFlag = false;
+// let youFlag = false;
+
+// window.addEventListener("keydown", ev => {
+//     if (ev.key === "b") {
+//         babaFlag = !babaFlag;
+//         if (babaFlag) babaYou.applyBehavior(BabaWord);
+//         else babaYou.unapplyBehavior();
+//         console.log(`Baba: ${babaFlag}`);
+//     } else if (ev.key === "i") {
+//         isFlag = !isFlag;
+//         if (isFlag) isYou.applyBehavior(IsWord);
+//         else isYou.unapplyBehavior();
+//         console.log(`Is: ${isFlag}`);
+//     } else if (ev.key === "y") {
+//         youFlag = !youFlag;
+//         if (youFlag) youYou.applyBehavior(YouWord);
+//         else youYou.unapplyBehavior();
+//         console.log(`You: ${youFlag}`);
+//     }
+// });

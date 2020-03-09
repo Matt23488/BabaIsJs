@@ -14,7 +14,7 @@ class Renderer
     #context = null;
 
     /**
-     * @type {HTMLCanvasElement}
+     * @type {HTMLImageElement}
      */
     #spritesheet = null;
 
